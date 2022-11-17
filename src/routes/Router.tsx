@@ -1,13 +1,18 @@
-import React from "react";
-import { View, Text } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./screens/HomeScreen";
+import LoginScreen from "./screens/LoginScreen";
 import DataScreen from "./screens/DataScreen";
 import ConfigurationsScreen from "./screens/ConfigurationsScreen";
 
-const Drawer = createDrawerNavigator();
-const Stack = createNativeStackNavigator();
+export type RootStackParamList = {
+  Drawer: undefined;
+  Login: undefined;
+};
+
+const Drawer = createDrawerNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
 const DrawerNavigator = () => {
   return (
     <Drawer.Navigator>
@@ -18,18 +23,11 @@ const DrawerNavigator = () => {
   );
 };
 export function Router() {
+  const isLoggedIn = true;
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Drawer" component={DrawerNavigator} />
+      <Stack.Screen name="Login" component={LoginScreen} />
     </Stack.Navigator>
   );
 }
-
-const LoginScreen = () => {
-  return (
-    <View>
-      <Text>Login page</Text>
-    </View>
-  );
-};
